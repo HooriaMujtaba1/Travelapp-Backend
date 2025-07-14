@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt.token_blacklist',
     'listings',
+    'corsheaders',
     'django_rest_passwordreset',
     'drf_yasg',
 ]
@@ -152,7 +153,7 @@ REST_FRAMEWORK = {
         'rest_framework.renderers.BrowsableAPIRenderer',  
     ),
 }
-
+CORS_ALLOW_CREDENTIALS = True
 
 CORS_ALLOW_ALL_ORIGINS = True
 REST_REGISTRATION = {
