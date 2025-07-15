@@ -3,9 +3,9 @@ import os
 from pathlib import Path
 from datetime import timedelta
 
-# === BASE DIRECTORY ===
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+# === BASE DIRECTORY ===
+BASE_DIR = Path(__file__).resolve().parent.parent  # ✅ use Pathlib, not os.path
 
 # === SECRET KEY ===
 SECRET_KEY = config('SECRET_KEY')  # ✅ Secure & simple
