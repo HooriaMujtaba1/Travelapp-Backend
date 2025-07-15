@@ -1,9 +1,8 @@
 [phases.setup]
-nixPkgs = ["python311"]
+nixPkgs = ["python311", "python3Packages.pip", "python3Packages.setuptools"]
 
 [phases.install]
 cmds = [
-  "python -m ensurepip --upgrade",  # Ensure pip is installed
   "pip install --upgrade pip",
   "pip install -r requirements.txt"
 ]
