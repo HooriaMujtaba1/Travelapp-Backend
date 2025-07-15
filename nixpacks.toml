@@ -1,0 +1,14 @@
+[build]
+baseImage = "python:3.10"  # Matches your Django 5.2.x requirements
+
+[phases]
+install = [
+    "pip install --upgrade pip",
+    "pip install -r requirements.txt"
+]
+build = [
+    "python manage.py collectstatic --noinput"
+]
+
+[start]
+cmd = "gunicorn listings_project.wsgi:application --bind 0.0.0.0:$PORT --workers 3"
