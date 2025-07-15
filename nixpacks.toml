@@ -1,7 +1,9 @@
 [phases.setup]
 cmds = [
-  "mkdir -p /opt/venv/pip-cache",  # Use a list, not a string
-  "python3 -m venv /opt/venv"       # Create virtual environment
+  "apt-get update -y",  # Update apt repositories
+  "apt-get install -y libpq-dev",  # Install PostgreSQL development libraries
+  "mkdir -p /opt/venv/pip-cache",  # Ensure pip cache directory
+  "python3 -m venv /opt/venv",  # Create virtual environment
 ]
 
 [phases.install]
