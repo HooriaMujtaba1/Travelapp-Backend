@@ -1,5 +1,5 @@
-[phases.setup]
-nixPkgs = ["python311", "pip"]
+[build]
+baseImage = "python:3.10-slim"  # or just "python:3.10-bullseye"
 
 [phases.install]
 cmds = [
