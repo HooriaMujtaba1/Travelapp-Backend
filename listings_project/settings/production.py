@@ -1,24 +1,29 @@
 from .base import *
 from decouple import config
-# Turn off debug mode for production
+import os  # missing in your snippet
+
+# ✅ Turn off debug mode
 DEBUG = False
+
+# ✅ Extend base.py’s INSTALLED_APPS instead of replacing it
+INSTALLED_APPS += [
+    # You already have the core apps in base.py, so just add production-specific ones if any
+]
+
+# ✅ Required for static files
 STATIC_URL = "/static/"
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
-
+# ✅ Railway will need this wildcard unless you specify your domain
 ALLOWED_HOSTS = ['*']
-INSTALLED_APPS = [
-    'django.contrib.staticfiles',  # ✅ This must be present
-]
 
-
-
+# ✅ Production secret key
 SECRET_KEY = config('SECRET_KEY')
 
-# Use Whitenoise for static file serving
+# ✅ WhiteNoise static file handler
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-# Enable secure settings for HTTPS
+# ✅ Secure settings
 SECURE_SSL_REDIRECT = True
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
