@@ -7,6 +7,9 @@ STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 
 ALLOWED_HOSTS = ['*']
+INSTALLED_APPS = [
+    'django.contrib.staticfiles',  # ✅ This must be present
+]
 
 
 

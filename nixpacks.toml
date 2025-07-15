@@ -14,9 +14,10 @@ cmds = [
 
 [phases.build]
 cmds = [
-  "python manage.py collectstatic --noinput",
-  "python manage.py migrate"
+  "python manage.py collectstatic --noinput --settings=listings_project.settings.production",
+  "python manage.py migrate --settings=listings_project.settings.production"
 ]
+
 
 [start]
 cmd = "gunicorn listings_project.wsgi:application --bind 0.0.0.0:$PORT --workers 3"
