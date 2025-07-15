@@ -1,5 +1,5 @@
 [build]
-baseImage = "python:3.10"  # Matches your Django 5.2.x requirements
+baseImage = "python:3.10"  # Match your Python version
 
 [phases]
 install = [
