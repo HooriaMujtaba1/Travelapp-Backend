@@ -1,22 +1,20 @@
-[build]
-baseImage = "python:3.10"
-
-[phases]
-setup = [
-    "python -m venv /opt/venv",
-    "mkdir -p /opt/venv/pip-cache"
+[phases.setup]
+cmds = [
+  "mkdir -p /opt/venv/pip-cache",  # Use a list, not a string
+  "python3 -m venv /opt/venv"       # Create virtual environment
 ]
 
-install = [
-    ". /opt/venv/bin/activate",
-    "pip install --cache-dir /opt/venv/pip-cache --upgrade pip",
-    "pip install --cache-dir /opt/venv/pip-cache -r requirements.txt"
+[phases.install]
+cmds = [
+  "pip install --upgrade pip",
+  "pip install -r requirements.txt"
 ]
 
-build = [
-    ". /opt/venv/bin/activate",
-    "python manage.py collectstatic --noinput"
+[phases.build]
+cmds = [
+  "python manage.py collectstatic --noinput",
+  "python manage.py migrate"
 ]
 
 [start]
-cmd = "/opt/venv/bin/gunicorn listings_project.wsgi:application --bind 0.0.0.0:$PORT"
+cmd = "gunicorn listings_project.wsgi:application --bind 0.0.0.0:$PORT --workers 3"
