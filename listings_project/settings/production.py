@@ -12,10 +12,8 @@ SECRET_KEY = config('SECRET_KEY')
 STATIC_URL = "/static/"
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
-# ✅ Extend apps (if needed)
-INSTALLED_APPS = INSTALLED_APPS + [  # Not += which may fail if not defined
-    # Production-only apps (optional)
-]
+# ✅ Optional production-specific apps
+INSTALLED_APPS += []
 
 # ✅ WhiteNoise
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
