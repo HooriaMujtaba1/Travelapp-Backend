@@ -1,12 +1,14 @@
 [build]
-baseImage = "python:3.10"  # Match your Python version
+baseImage = "python:3.10"
 
-[phases]
-install = [
+[phases.install]
+cmds = [
   "pip install --upgrade pip",
   "pip install -r requirements.txt"
 ]
-build = [
+
+[phases.build]
+cmds = [
   "python manage.py collectstatic --noinput"
 ]
 
