@@ -1,15 +1,15 @@
 [phases.setup]
-cmds = [
-  "apt-get update -y",  # Update apt repositories
-  "apt-get install -y libpq-dev",  # Install PostgreSQL development libraries
-  "mkdir -p /opt/venv/pip-cache",  # Ensure pip cache directory
-  "python3 -m venv /opt/venv",  # Create virtual environment
+nixPkgs = [
+  "python311",
+  "python311Packages.pip",
+  "python311Packages.setuptools",
+  "python311Packages.psycopg2"
 ]
 
 [phases.install]
 cmds = [
-  "pip install --upgrade pip",
-  "pip install -r requirements.txt"
+  "pip install --no-cache-dir --upgrade pip",
+  "pip install --no-cache-dir -r requirements.txt"
 ]
 
 [phases.build]

@@ -2,9 +2,12 @@ from .base import *
 from decouple import config
 # Turn off debug mode for production
 DEBUG = False
+STATIC_URL = "/static/"
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
-# Define allowed hosts (update this for your actual domain)
-ALLOWED_HOSTS = ['yourdomain.com', '127.0.0.1', 'localhost']
+
+ALLOWED_HOSTS = ['*']
+
 
 
 SECRET_KEY = config('SECRET_KEY')
