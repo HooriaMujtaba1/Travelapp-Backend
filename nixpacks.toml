@@ -1,21 +1,22 @@
-[phases.setup]
-nixPkgs = [
-  "python311",             # Install Python 3.11
-  "python3Packages.pip",   # Ensure pip is available via Nix
-  "python3Packages.setuptools"  # Install setuptools (if required)
+[build]
+baseImage = "python:3.10"
+
+[phases]
+setup = [
+    "python -m venv /opt/venv",
+    "mkdir -p /opt/venv/pip-cache"
 ]
 
-[phases.install]
-cmds = [
-  "python3 -m ensurepip --upgrade",  # Ensure pip is installed
-  "python3 -m pip install --no-cache-dir -r requirements.txt"  # Use pip to install dependencies
+install = [
+    ". /opt/venv/bin/activate",
+    "pip install --cache-dir /opt/venv/pip-cache --upgrade pip",
+    "pip install --cache-dir /opt/venv/pip-cache -r requirements.txt"
 ]
 
-[phases.build]
-cmds = [
-  "python manage.py collectstatic --noinput",
-  "python manage.py migrate"
+build = [
+    ". /opt/venv/bin/activate",
+    "python manage.py collectstatic --noinput"
 ]
 
 [start]
-cmd = "gunicorn listings_project.wsgi:application --bind 0.0.0.0:$PORT --workers 3"
+cmd = "/opt/venv/bin/gunicorn listings_project.wsgi:application --bind 0.0.0.0:$PORT"
