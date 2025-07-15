@@ -1,13 +1,14 @@
 [phases.setup]
 nixPkgs = [
-  "python311",              # Install Python 3.11
-  "python3Packages.pip",    # Ensure pip is available via Nix
+  "python311",             # Install Python 3.11
+  "python3Packages.pip",   # Ensure pip is available via Nix
   "python3Packages.setuptools"  # Install setuptools (if required)
 ]
 
 [phases.install]
 cmds = [
-  "pip install -r requirements.txt"  # Use the pip that comes with Python via Nix
+  "python3 -m ensurepip --upgrade",  # Ensure pip is installed
+  "python3 -m pip install --no-cache-dir -r requirements.txt"  # Use pip to install dependencies
 ]
 
 [phases.build]
