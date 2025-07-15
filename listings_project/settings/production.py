@@ -1,33 +1,30 @@
-from .base import *
+from .base import *  # Import everything from base.py
 from decouple import config
-import os  # missing in your snippet
+import os
 
-# ✅ Turn off debug mode
 DEBUG = False
 
-# ✅ Extend base.py’s INSTALLED_APPS instead of replacing it
-INSTALLED_APPS += [
-    # You already have the core apps in base.py, so just add production-specific ones if any
-]
+ALLOWED_HOSTS = ['*']
 
-# ✅ Required for static files
+SECRET_KEY = config('SECRET_KEY')
+
+# ✅ Static files settings
 STATIC_URL = "/static/"
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
-# ✅ Railway will need this wildcard unless you specify your domain
-ALLOWED_HOSTS = ['*']
+# ✅ Extend apps (if needed)
+INSTALLED_APPS = INSTALLED_APPS + [  # Not += which may fail if not defined
+    # Production-only apps (optional)
+]
 
-# ✅ Production secret key
-SECRET_KEY = config('SECRET_KEY')
-
-# ✅ WhiteNoise static file handler
+# ✅ WhiteNoise
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-# ✅ Secure settings
+# ✅ Security
 SECURE_SSL_REDIRECT = True
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
-SECURE_HSTS_SECONDS = 2592000  # 30 days
+SECURE_HSTS_SECONDS = 2592000
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 SECURE_HSTS_PRELOAD = True
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
