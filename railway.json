@@ -1,0 +1,10 @@
+{
+  "build": {
+    "env": {
+      "SECRET_KEY": "u4ne3-d6#7d)jvujuty=a*@j#p6q131m-kos9f^+5_#8t&1j",
+      "DJANGO_SETTINGS_MODULE": "listings_project.settings.production",
+      "EMAIL_HOST_USER": "hooriamughal275@gmail.com",
+      "EMAIL_HOST_PASSWORD": "rild-psfz-ybes-nvpb"
+    }
+  }
+}
