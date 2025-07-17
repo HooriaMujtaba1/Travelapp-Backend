@@ -7,6 +7,8 @@ DEBUG = False
 ALLOWED_HOSTS = ['*']
 
 SECRET_KEY = config('SECRET_KEY')
+print("✅ SECRET_KEY Loaded:", config('SECRET_KEY')[:5])  # just to confirm
+
 
 # ✅ Static files settings
 STATIC_URL = "/static/"
