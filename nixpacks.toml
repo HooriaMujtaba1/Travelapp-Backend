@@ -4,7 +4,8 @@ nixPkgs = [
   "python311Packages.pip",
   "python311Packages.setuptools",
   "python311Packages.wheel",
-  "python311Packages.psycopg2-binary"  # Optional if needed separately
+  "python311Packages.psycopg2-binary",
+  "python311Packages.gunicorn"  # ✅ Add this line
 ]
 
 [phases.install]
