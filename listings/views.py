@@ -3,7 +3,8 @@ from rest_framework import viewsets, permissions, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
-
+from django.contrib.auth.models import User
+from django.http import JsonResponse
 # === Django Imports ===
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import User as DefaultUser  # For fallback superuser creation
@@ -92,13 +93,7 @@ class BookingViewSet(viewsets.ModelViewSet):
 
 # === Custom Admin Creation View ===
 def create_admin(request):
-    """
-    Create a default superuser (hooria/hooria12345) if it doesn't exist.
-    """
-    if not DefaultUser.objects.filter(username='hooria').exists():
-        DefaultUser.objects.create_superuser(
-            username='hooria',            
-            password='hooria'
-        )
-        return HttpResponse("✅ Superuser created!")
-    return HttpResponse("👤 Superuser already exists.")
+    if not User.objects.filter(username='admin').exists():
+        User.objects.create_superuser('admin', 'admin@example.com', 'adminpassword')
+        return JsonResponse({'message': 'Admin user created'})
+    return JsonResponse({'message': 'Admin already exists'})
