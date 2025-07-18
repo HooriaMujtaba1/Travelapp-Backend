@@ -27,6 +27,17 @@ STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 # ✅ WhiteNoise configuration for serving static files
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
+# ✅ Media files settings (Cloudinary integration)
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
+# ✅ Cloudinary configuration for media storage
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': config('CLOUD_NAME'),
+    'API_KEY': config('CLOUDINARY_API_KEY'),
+    'API_SECRET': config('CLOUDINARY_API_SECRET')
+}
+
 # ✅ Security settings for HTTPS
 SECURE_SSL_REDIRECT = True
 SESSION_COOKIE_SECURE = True
@@ -35,3 +46,6 @@ SECURE_HSTS_SECONDS = 2592000  # 30 days
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 SECURE_HSTS_PRELOAD = True
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+# ✅ Additional security and settings
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='*').split(',')
