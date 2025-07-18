@@ -33,6 +33,9 @@ INSTALLED_APPS = [
 
     # Local apps
     'listings',
+
+    'cloudinary_storage',
+    'cloudinary',
 ]
 
 
@@ -159,3 +162,10 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # === DEFAULT AUTO FIELD ===
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'drlufd8h9',
+    'API_KEY': '886747866658365',
+    'API_SECRET': 'QoSbeWjjRzBDcxQLE9zMnetlL2M'
+}
