@@ -4,17 +4,9 @@ from datetime import datetime
 
 # Serializer for listing images
 class ListingImageSerializer(serializers.ModelSerializer):
-    image = serializers.SerializerMethodField()
-
     class Meta:
         model = ListingImage
         fields = ['id', 'image']
-
-    def get_image(self, obj):
-        # Safely return the image URL (Cloudinary or local depending on config)
-        if obj.image and hasattr(obj.image, 'url'):
-            return obj.image.url
-        return None
 
 
 # Serializer for listings
@@ -49,7 +41,6 @@ class BookingSerializer(serializers.ModelSerializer):
         if start_date > end_date:
             raise serializers.ValidationError("Start date must be before end date.")
 
-        # Validate listing
         listing_id = data.get('listing_id')
         try:
             listing = Listing.objects.get(id=listing_id)
