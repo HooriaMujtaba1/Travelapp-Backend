@@ -3,7 +3,6 @@ import os
 from pathlib import Path
 from datetime import timedelta
 
-
 # === BASE DIRECTORY ===
 BASE_DIR = Path(__file__).resolve().parent.parent  # ✅ use Pathlib, not os.path
 
@@ -165,7 +164,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': config('drlufd8h9'),
+    'CLOUD_NAME': config('CLOUD_NAME'),
     'API_KEY': config('886747866658365'),
     'API_SECRET': config('QoSbeWjjRzBDcxQLE9zMnetlL2M')
 }
