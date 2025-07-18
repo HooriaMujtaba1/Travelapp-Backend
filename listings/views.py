@@ -1,5 +1,3 @@
-# listings/views.py
-
 # === Django REST Framework Imports ===
 from rest_framework import viewsets, permissions, status
 from rest_framework.views import APIView
@@ -8,8 +6,10 @@ from rest_framework.permissions import AllowAny
 
 # === Django Imports ===
 from django.contrib.auth import get_user_model
+from django.contrib.auth.models import User as DefaultUser  # For fallback superuser creation
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.utils.http import urlsafe_base64_decode
+from django.http import HttpResponse
 
 # === Local App Imports ===
 from .models import Listing, Booking
@@ -45,14 +45,12 @@ class PasswordResetConfirmView(APIView):
         token = request.data.get('token')
         new_password = request.data.get('new_password')
 
-        # Validate input
         if not uidb64 or not token or not new_password:
             return Response(
                 {'error': 'Missing id (uidb64), token, or new_password.'},
                 status=status.HTTP_400_BAD_REQUEST
             )
 
-        # Decode UID and fetch user
         try:
             uid = urlsafe_base64_decode(uidb64).decode()
             user = User.objects.get(pk=uid)
@@ -62,7 +60,6 @@ class PasswordResetConfirmView(APIView):
                 status=status.HTTP_400_BAD_REQUEST
             )
 
-        # Validate token
         token_generator = PasswordResetTokenGenerator()
         if not token_generator.check_token(user, token):
             return Response(
@@ -70,7 +67,6 @@ class PasswordResetConfirmView(APIView):
                 status=status.HTTP_400_BAD_REQUEST
             )
 
-        # Reset and save new password
         user.set_password(new_password)
         user.save()
 
@@ -92,3 +88,17 @@ class BookingViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         user = self.request.user if self.request.user.is_authenticated else None
         serializer.save(user=user)
+
+
+# === Custom Admin Creation View ===
+def create_admin(request):
+    """
+    Create a default superuser (hooria/hooria12345) if it doesn't exist.
+    """
+    if not DefaultUser.objects.filter(username='hooria').exists():
+        DefaultUser.objects.create_superuser(
+            username='hooria',            
+            password='hooria'
+        )
+        return HttpResponse("✅ Superuser created!")
+    return HttpResponse("👤 Superuser already exists.")
