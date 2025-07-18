@@ -27,10 +27,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 # ✅ WhiteNoise configuration for serving static files
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-# ✅ Media files settings (Cloudinary integration)
-MEDIA_URL = "/media/"
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")
-
 # ✅ Cloudinary configuration for media storage
 CLOUDINARY_STORAGE = {
     'CLOUD_NAME': config('CLOUD_NAME'),
@@ -49,3 +45,5 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # ✅ Additional security and settings
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='*').split(',')
+MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
